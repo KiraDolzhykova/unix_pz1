@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <title>ToDo App</title>
+</head>
+</head>
+<body>
+    <div style="margin-top: 50px;" class="ui container">
+    <h1 class="ui center aligned header">Список завдань</h1>
+    <form class="ui form" action="{{ url_for('add_task') }}" method="POST">
+        <input type="text" name="title" placeholder="Введіть завдання" required>
+        <button class="ui blue button" type="submit">Додати</button>
+    </form>
+    <hr>
+        {% for task in tasks %}
+            {% if task.complete %} {% endif %}
+                <p class="ui big header">{{ task.title }}</p>
+                {% if task.complete %}
+                    <span class="ui green label">Виконано</span>
+                {% else %}
+                    <span class="ui gray label">Не виконано</span>{% endif %}
+                <a class="ui blue button" href="{{ url_for('update_task', id=loop.index0) }}" class="update-btn">Оновити</a>
+                <a class="ui red button" href="{{ url_for('delete_task', id=loop.index0) }}" class="delete-btn">Видалити</a>
+            {% endfor %}
+    </div>
+</body>
+</html>
